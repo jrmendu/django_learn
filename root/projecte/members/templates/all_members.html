@@ -1,0 +1,16 @@
+<!-- all_members.html -->
+{% extends 'master.html' %}
+{% block title %} <h1>All Members</h1> {% endblock %}
+
+{% block content %}
+    <section id="all_members">
+        <div >
+            <ul>
+                {% for mem in mymembers %}
+                <li><a href="details/{{ mem.id }}">{{ mem.firstname }} {{ mem.lastname }}</a></li>
+                {% endfor %}
+                <li><p><a href="/">HOME</a></p></li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
