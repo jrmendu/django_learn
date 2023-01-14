@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# templatetags/
+productionfiles/
+
+# Ignoramos base de datos de SQLite3
+*.db
+*.sqlite3

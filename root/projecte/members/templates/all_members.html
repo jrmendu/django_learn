@@ -4,12 +4,12 @@
 
 {% block content %}
     <section id="all_members">
-        <div >
+        <div class="mycard">
+            <h1>Members</h1>
             <ul>
-                {% for mem in mymembers %}
-                <li><a href="details/{{ mem.id }}">{{ mem.firstname }} {{ mem.lastname }}</a></li>
-                {% endfor %}
-                <li><p><a href="/">HOME</a></p></li>
+              {% for x in mymembers %}
+                <li onclick="window.location = 'details/{{ x.id }}'">{{ x.firstname }} {{ x.lastname }}</li>
+              {% endfor %}
             </ul>
         </div>
     </section>
