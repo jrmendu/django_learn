@@ -6,19 +6,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- Favicon.ico -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <!-- Bootrstap Hoja de Estilos -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <!-- Hoja principal de estilos -->
     <link rel="stylesheet" href="{% static 'global.css' %}">
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    <div class="topnav">
-        <a href="/">HOME</a> |
-        <a href="/members">MEMBERS</a> |
-        <a href="testing/">TESTING</a>
-      </div>
-
-    {% block content %}
-    {% endblock %}
-
+    <div class="row">
+        
+        <div class="topnav col-12">
+            <a href="/">HOME</a> |
+            <a href="/members">MEMBERS</a> |
+            <a href="/testing/">TESTING</a> |
+        </div>
+        <div class="col-12">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div> 
 </body>
 </html>

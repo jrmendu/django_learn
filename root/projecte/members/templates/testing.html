@@ -3,6 +3,418 @@
 {% block title %} Testing {% endblock %}
 
 {% block content %}
-  <h1>Página de Testing</h1>
-  <a href="/">Inicio</a>
+  <div class="row">
+    <div class="col-2">
+      <div class="mycard2">
+        <h1>Enlaces</h1>
+          <ul>
+            <li class="liSidebar" onclick="window.location = '/'">Inicio</li>
+            <li class="liSidebar" onclick="window.location = '/'">Inicio</li>
+            <li class="liSidebar" onclick="window.location = '/'">Inicio</li>
+          </ul>
+      </div>
+    </div>
+    <div class="col-10 p-5">
+      <div class="row">
+        <!-- Gestion de datos en Django -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2"> Lista desde context</h2>
+          {% for animal in animals %}
+            <p class="text-center">{{animal}}</p>
+          {% endfor %}
+        </div>
+
+        <div class="border border-ligth col-6 m-2">
+          <h2 class="text-center titolH2">Dato creado en context</h2>
+            <p class="text-center">Dato: {{variable}}</p>
+        </div>
+
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">Lista desde tabla</h2>
+          {% for member in members %}
+            <p class="text-center">{{member.firstname}} {{member.lastname}}</p>
+          {% endfor %}
+        </div>
+
+        <div class="border border-ligth col-6 m-2">
+          <h2 class="text-center titolH2">Dato creado en template</h2>
+          {% with dato="Estoy en el template" %}
+            <p class="text-center">Dato: {{dato}}</p>
+          {% endwith %}
+        </div>
+      </div>
+      <!-- Tags de Django  -->
+      <div class="row mt-5">
+        <div class="col-12 mb-3"><h1 class="text-center titolH1"> Django tags </h1></div>
+        <!-- Autoescape -->
+        <div class="border border-ligth col-6 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_autoescape.php" class="text-decoration-none" target="_blank">autoescape</a>  
+          </h2>
+          <p class="text-center">Autoescape on (default) -> Html code in variables will be escaped</p>
+          <p class="text-center">These characters are escaped: [ <, >,', ", & ]</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>autoescape on</strong></h5>
+          <div class="text-center">
+            {% autoescape on %}
+              {{ heading_no_esc }} <br>
+              {{ heading_esc }}
+            {% endautoescape %}
+          </div>
+          <h5 class="text-center mt-3 text-decoration-underline fst-italic"><strong>autoescape off</strong></h5>
+          <div class="text-center mt-2">
+            {% autoescape off %}
+              {{ heading_no_esc }} <br>
+              {{ heading_esc }}
+            {% endautoescape %}
+          </div>
+        </div>
+
+        <!-- Block -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_block.php" class="text-decoration-none" target="_blank">Block</a>  
+          </h2>
+          <p class="text-center">It is a placeholder for content (Master)</p>
+          <p class="text-center">It is content tath will replace the placeholder (Child)</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+<pre>
+  <code>
+    {&#37; block title &#37;} 
+        The site's title
+    {&#37; endblock &#37;}
+
+    {&#37; block content &#37;} 
+        Empty on Master, full on Child
+    {&#37; endblock &#37;}
+  </code>
+</pre>
+          </div>
+        </div>
+
+        <!-- Comment -->
+        <div class="border border-ligth col-7 m-2 mx-auto">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_comment.php" class="text-decoration-none" target="_blank">Comment</a>  
+          </h2>
+          <p class="text-center">Add comment sections that will be ignored by Django. They have several uses </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div class="text-center">
+<pre>
+<code>
+  &lt;!-- HTML's comment --&gt;
+
+  {&#37; comment "Explanation" &#37;}
+    Django's comment
+  {&#37; endcomment &#37;}
+</code>
+</pre>
+          </div>
+        </div>
+
+        <!-- Cycle -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_cycle.php" class="text-decoration-none" target="_blank">cycle</a>  
+          </h2>
+          <p class="text-center">Returns different values for different iterations in a loop.</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+        <pre>
+        <code>
+        {&#37; cycle arg1 arg2 arg3 ... &#37;}
+        </code>
+        </pre>
+          </div>
+          <div class="d-flex justify-content-center">
+            {% for animal in animals %} 
+              <p style="color:{% cycle 'red' 'blue' 'green' %}"> {{ animal }}, </p>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- resetcycle -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_cycle.php" class="text-decoration-none" target="_blank">resetcycle</a>  
+          </h2>
+          <p class="text-center">
+            Used inside a cycle, and resets the cycle, making it start at the beginning.
+            It does not reset the loop, only the cycle. 
+            If you have multiple cycles, you can specify which one to reset with the name argument
+          </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+          <pre>
+          <code>
+          {&#37; resetcycle name &#37;}
+          </code>
+          </pre>
+          </div>
+          <div class="d-flex justify-content-center">
+            {% for animal in animals %} 
+              <p style="color:{% cycle 'red' 'green' 'blue' 'pink' as mycolor %};
+                        background:{% cycle 'grey' 'beige' 'coral' 'brown' as mybg %};"> -{{animal}}-   </p>
+              {% if animal == "Cat" %}
+                {% resetcycle mybg %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Extends -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_extends.php" class="text-decoration-none" target="_blank">extends</a>  
+          </h2>
+          <p class="text-center">Is used to specify that this template needs a parent template.</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+      <pre>
+      <code>
+      {&#37; extends 'parent_template' &#37;}
+      </code>
+      </pre>
+          </div>
+        </div>
+
+        <!-- Include -->
+        <div class="border border-ligth col-6 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_include.php" class="text-decoration-none" target="_blank">include</a>  
+          </h2>
+          <p class="text-center">Allows you to include content from another template.</p>
+          <p class="text-center">Place the tag exactly where you want the content to be displayed</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+      <pre>
+      <code>
+      {&#37; include 'template' &#37;}
+      {&#37; include 'template' with key=value &#37;}
+      </code>
+      </pre>
+          </div>
+        </div>
+
+        <!-- With -->
+        <div class="border border-ligth col-6 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_with.php" class="text-decoration-none" target="_blank">with</a>  
+          </h2>
+          <p class="text-center">Is used to create variables in Django Templates</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+  <pre>
+  <code>
+  {&#37; with var1=val1 var2=val2 ... &#37;}
+          ...
+  {&#37; endwith &#37;}
+  </code>
+  </pre>
+          </div>
+        </div>
+
+        <!-- Firstof -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_firstof.php" class="text-decoration-none" target="_blank">firstof</a>  
+          </h2>
+          <p class="text-center">Returns the first argument that is not an </p>
+          <p class="text-center">Empty variable -> "", 0 , False </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+      <pre>
+      <code>
+      {&#37; firstof var1 var2 ... &#37;}
+      </code>
+      </pre>
+          </div>
+        </div>
+
+        <!-- ifchanged -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_ifchanged.php" class="text-decoration-none" target="_blank">ifchanged</a>  
+          </h2>
+          <p class="text-center">
+            Allows you to check a value in a loop and output a code if the value has changed
+            since the last iteration
+          </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+      <pre>
+      <code>
+      {&#37; ifchanged property &#37;}
+              ...
+      {&#37; endifchanged &#37;}
+      </code>
+      </pre>
+          </div>
+          <div class="d-flex justify-content-center">
+            {% for num in lista_num2 %} 
+              {% ifchanged %}
+              <p style="color:green"> {{ num }}, </p>
+              {% else %}
+              <p style="color:red"> {{ num }}, </p>
+              {% endifchanged %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- lorem -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/django_ref_template_tags.php" class="text-decoration-none" target="_blank">Lorem</a>  
+          </h2>
+          <p class="text-center"> Inserts a specified amount of random text 'Lorem ipsum' </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+<pre>
+<code>
+{&#37; lorem count(n) method(b,p,w) random &#37;}
+</code>
+</pre>
+          </div>
+          <div class="d-flex justify-content-center">
+            {% lorem 15 w random %}    
+          </div>
+        </div>
+
+        <!-- now -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_now.php" class="text-decoration-none" target="_blank">Now</a>  
+          </h2>
+          <p class="text-center">Inserts the current date and/or time. </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+<pre>
+<code>
+{&#37; now format(string with characters) &#37;}
+</code>
+</pre>
+          </div>
+          <div class="d-flex justify-content-center">
+            {% now "Y-m-d // G:i:s" %}    
+          </div>
+        </div>
+
+        <!-- spaceless -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_spaceless.php" class="text-decoration-none" target="_blank">spaceless</a>  
+          </h2>
+          <p class="text-center">Is used to remove any space between tags, in the code. </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+          <pre>
+          <code>
+          {&#37; spaceless &#37;}
+          {&#37; endspaceless &#37;}
+          </code>
+          </pre>
+          </div>
+          <!-- <div class="d-flex justify-content-center">
+            {% spaceless %}
+              <ul style="width: 100px; margin: 0 auto;">
+                {% for numero in lista_num %}
+                  <li>      
+                    <span>       {{ numero }}          </span>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endspaceless %}   
+          </div> -->
+        </div>
+
+        <!-- regroup -->
+        <div class="border border-ligth col-10 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_now.php" class="text-decoration-none" target="_blank">regroup</a>  
+          </h2>
+          <p class="text-center">Returns a new object grouped by a specified value</p>
+          <p class="text-center">Returns -> [ GroupedResult(grouper, [ {},{} ])</p>
+          <p class="text-center">Make sure the object is sorted correctly</p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+                    <pre>
+                    <code>
+                    {&#37; regroup object by object.property as newname &#37;}
+                    </code>
+                    </pre>
+          </div>
+
+          <div class="text-center">
+            {% regroup cars by brand as my_car %}  
+            <h4>Cars by brand:</h4>
+            {% for car in my_car %}
+              <h5>{{ car.grouper }}</h5>
+              {% for car_obj in car.list %}
+                <p>
+                  <strong>Model:</strong>  {{ car_obj.model }}. 
+                  <strong>Year:</strong>     {{ car_obj.year }}. 
+                  <strong>Doors:</strong> {{ car_obj.doors }}
+                </p>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- templatetag -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_templatetag.php" class="text-decoration-none" target="_blank">templatetag</a>  
+          </h2>
+          <p class="text-center"> Is used to display characters that are normally used to perform Django tasks. </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+          <pre>
+          <code>
+          {&#37; templatetag name &#37;}
+          </code>
+          </pre>
+          </div>
+          <div class="d-flex justify-content-center">
+            <p class="text-center">
+              openvariable - closevariable - openblock - closeblock - openbrace - closebrace - opencomment - closecomment
+            </p>  
+          </div>
+        </div>
+        
+        <!-- verbatim -->
+        <div class="border border-ligth col-5 m-2">
+          <h2 class="text-center titolH2">
+            <a href="https://www.w3schools.com/django/ref_tags_verbatim.php" class="text-decoration-none" target="_blank">verbatim</a>  
+          </h2>
+          <p class="text-center"> Is is used to stop Django from executing code. </p>
+          <hr>
+          <h5 class="text-center text-decoration-underline fst-italic"><strong>Syntax</strong></h5>
+          <div>
+          <pre>
+          <code>
+          {&#37; verbatim name &#37;}
+                  ...
+          {&#37; endverbatim &#37;}
+          </code>
+          </pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
