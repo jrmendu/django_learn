@@ -132,7 +132,7 @@
           </div>
           <div class="d-flex justify-content-center">
             {% for animal in animals %} 
-              <p style="color:{% cycle 'red' 'blue' 'green' %}"> {{ animal }}, </p>
+              <p style='color:{% cycle "red" "blue" "green" %}'> {{ animal }}, </p>
             {% endfor %}
           </div>
         </div>
@@ -158,8 +158,7 @@
           </div>
           <div class="d-flex justify-content-center">
             {% for animal in animals %} 
-              <p style="color:{% cycle 'red' 'green' 'blue' 'pink' as mycolor %};
-                        background:{% cycle 'grey' 'beige' 'coral' 'brown' as mybg %};"> -{{animal}}-   </p>
+              <p style="color:{% cycle 'red' 'green' 'blue' 'pink' as mycolor %}; background:{% cycle 'grey' 'beige' 'coral' 'brown' as mybg %};"> -{{animal}}-</p>
               {% if animal == "Cat" %}
                 {% resetcycle mybg %}
               {% endif %}
